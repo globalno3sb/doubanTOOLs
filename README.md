@@ -4,10 +4,11 @@
 
 ## 项目概述
 
-这个项目包含三个主要模块：
+这个项目包含四个主要模块：
 1. **douban_to_csv** - 从豆瓣抓取用户的观影记录并匹配到 Trakt 条目
 2. **csv_to_trakt** - 将处理好的 CSV 文件同步到 Trakt 账户
 3. **get_pin_trakt** - 获取 Trakt API 访问令牌的工具
+4. **douban_to_trakt_unified** - 统一系统，自动完成整个工作流程
 
 ## 功能特性
 
@@ -30,6 +31,13 @@
 - 🖥️ **用户友好** - 清晰的界面和详细的错误提示
 - 💾 **令牌保存** - 自动保存令牌到 JSON 文件供其他工具使用
 
+### douban_to_trakt_unified 模块
+- 🔄 **全自动流程** - 一键完成从豆瓣到 Trakt 的整个工作流程
+- 🤖 **智能协调** - 自动协调所有子系统的执行顺序
+- 🧪 **干运行支持** - 完整的干运行模式支持
+- 📋 **进度显示** - 实时显示每个步骤的执行状态
+- ⚡ **错误处理** - 完善的错误处理和恢复机制
+
 ## 安装依赖
 
 ```bash
@@ -43,7 +51,23 @@ pip install -r requirements.txt
 
 ## 使用方法
 
-### 第零步：获取 Trakt 访问令牌（如尚未获取）
+### 方法一：使用统一系统（推荐）
+
+```bash
+# 使用统一系统一键完成所有步骤
+python douban_to_trakt_unified/main.py
+```
+
+统一系统会引导您完成：
+1. 输入 Trakt 应用凭据
+2. 输入豆瓣用户ID和日期范围
+3. 配置输出文件
+4. 选择是否启用干运行模式
+5. 自动执行整个工作流程
+
+### 方法二：分步执行
+
+#### 第零步：获取 Trakt 访问令牌（如尚未获取）
 
 ```bash
 # 使用交互式工具获取令牌
@@ -162,14 +186,19 @@ doubanTOOLs/
 │   ├── trakt.py           # Trakt API 操作
 │   ├── importer.py        # 导入逻辑
 │   └── csv_to_trakt.py    # 主入口
-├── get_pin_trakt/         # Trakt 令牌获取模块
-│   ├── config.py          # 配置和用户引导
-│   ├── auth.py            # 认证逻辑
-│   ├── get_pin.py         # 主入口
-│   └── __init__.py        # 包初始化
-├── getpin.py              # 简化版令牌获取工具
-├── requirements.txt       # 依赖列表
-└── README.md             # 说明文档
+├── get_pin_trakt/              # Trakt 令牌获取模块
+│   ├── config.py               # 配置和用户引导
+│   ├── auth.py                 # 认证逻辑
+│   ├── get_pin.py              # 主入口
+│   └── __init__.py             # 包初始化
+├── douban_to_trakt_unified/    # 统一系统模块
+│   ├── config.py               # 统一配置管理
+│   ├── orchestrator.py         # 工作流程协调器
+│   ├── main.py                 # 统一系统主入口
+│   └── __init__.py             # 包初始化
+├── getpin.py                   # 简化版令牌获取工具
+├── requirements.txt            # 依赖列表
+└── README.md                   # 说明文档
 ```
 
 ## 注意事项
